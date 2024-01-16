@@ -1,0 +1,10 @@
+<!-- Technical Skills -->
+<div class="mb-5 d-flex flex-column justify-content-center" id="skills">
+    <h1>Skills</h1>
+    {% for s in skills %}
+    <ul class="list-unstyled">
+        <li class="ldt fs-md-1rem fs-lg-1rem">{{ s.name }}</li>
+        <li class="fs-md-2rem fs-lg-2rem">{% for t in s.skills.all %}{{ t.type }}{% if not forloop.last %} / {% endif %} {% endfor %}</li>
+    </ul>
+    {% endfor %}
+</div>

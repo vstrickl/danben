@@ -1,0 +1,21 @@
+<!-- Work Experience -->
+<div class="mb-5 d-flex flex-column justify-content-center" id="experience">
+    <h1>Experience</h1>
+    <ul class="list-unstyled">
+        {% for e in experience %}
+        <div class="mb-3">
+            <li class="fs-md-1rem ldt">
+                {{ e.start_date|date:"Y" }} - 
+                {% if e.present %}
+                    Present
+                {% else %}
+                    {{ e.end_date|date:"Y" }}
+                {% endif %}
+            </li>
+            <li class="company fs-md-2rem fs-lg-2rem">{{ e.job_title }}</li>
+            <li class="ldt fs-md-1rem fs-lg-1rem">{{ e.company.name }}</li>
+            </li>
+        </div>
+        {% endfor %}
+    </ul>
+</div>

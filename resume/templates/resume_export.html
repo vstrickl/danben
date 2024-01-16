@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    {% block header %} 
+        {% include 'components/header.html'%} 
+    {% endblock %}
+
+    <style>
+
+        i {
+            color: #999;
+        }
+
+        a, p, li {
+            color: #4e4e4e;
+        }
+
+        a, p, li {
+            font-family: {% for h in f.font.all %}'{{ h.family_name }}', {{ h.serif_type }}{% endfor %};
+        }
+
+        h1 {
+            font-family: {% for h in f.header_font.all %}'{{ h.family_name }}', {{ h.serif_type }}{% endfor %};
+        }
+
+        h1 {
+            font-weight: {{ f.header_font_weight }};
+        }
+
+        footer p {
+            color: #4e4e4e;
+        }
+
+        .active, a:hover {
+            color: #4d4d4d;
+        }
+
+        .nl {
+            color: #a7a7a7;
+        }
+
+        .ldt {
+            color: #8c8c8c;
+        }
+
+    </style>
+
+</head>
+
+<body class="vh-100">
+
+    <div class="h-100">
+
+
+        {% block summary %}
+            {% include 'exported_views/objective_ex.html'%}
+        {% endblock %}
+
+        <div class="container-fluid m-0 py-ex-1x">
+            <div class="row">
+                <!-- First Column (Acheivements) -->
+                <div class="col-md-8">
+                    {% block achievements %}
+                        {% include 'exported_views/achievements_ex.html' %}
+                    {% endblock %}
+                </div>
+        
+                <!-- Second Column -->
+                <div class="col-md-4">
+                    <!-- Experience Block -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            {% block body %}
+                                {% include 'exported_views/experience_ex.html' %}
+                            {% endblock %}
+                        </div>
+                    </div>
+        
+                    <!-- Memberships Block -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            {% block memberships %}
+                                {% include 'exported_views/memberships_ex.html' %}
+                            {% endblock %}
+                        </div>
+                    </div>
+        
+                    <!-- Education Block -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            {% block edu %}
+                                {% include 'exported_views/education_ex.html' %}
+                            {% endblock %}
+                        </div>
+                    </div>
+
+                    <!-- Skill Block -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            {% block skills %}
+                                {% include 'exported_views/skills_ex.html'%}
+                            {% endblock %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mx-2x">
+
+        {% block footer %}
+            {% include 'layout/footer.html'%}
+        {% endblock %}
+
+        </div>
+
+    </div>
+
+</body>
+</html>
