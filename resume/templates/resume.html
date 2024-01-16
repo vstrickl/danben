@@ -61,6 +61,10 @@
             {% include 'components/mobile-menu.html'%}
         {% endblock %}
 
+        {% block messages %}
+            {% include 'components/message-alerts.html' %}
+        {% endblock %}
+
         {% block summary %}
             {% include 'layout/objective.html'%}
         {% endblock %}
@@ -73,12 +77,16 @@
             {% include 'layout/achievements.html'%}
         {% endblock %}
 
-        {% block skills %}
-            {% include 'layout/skills.html'%}
+        {% block memberships %}
+            {% include 'layout/memberships.html'%}
         {% endblock %}
 
-        {% block references %}
-            {% include 'layout/references.html'%}
+        {% block edu %}
+            {% include 'layout/education.html'%}
+        {% endblock %}
+
+        {% block skills %}
+            {% include 'layout/skills.html'%}
         {% endblock %}
 
         <div class="mx-2x">

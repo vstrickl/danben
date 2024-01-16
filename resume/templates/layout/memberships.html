@@ -1,0 +1,9 @@
+<!-- Memberships & Certs -->
+<div class="mb-5 py-1x ps-lg-3x d-flex flex-column justify-content-center" id="memberships">
+    <h1 class="mb-5">Memberships &amp;<br>Certifications</h1>   
+    <ul class="lh-lg" style="list-style-type: square;">
+        {% for m in memberships %}
+        <li class="fs-md-2rem fs-lg-2rem">{{ m.membership_cert}}</li>
+        {% endfor %}
+    </ul>
+</div>

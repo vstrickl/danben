@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    {% block header %} 
+        {% include 'components/header.html'%} 
+    {% endblock %}
+
+</head>
+
+<body class="vh-100">
+
+    <div class="h-100">
+
+        {% block navbar %}
+            {% include 'components/navbar.html'%}
+        {% endblock %}
+
+        {% block mobile_nav %}
+            {% include 'components/mobile-menu.html'%}
+        {% endblock %}
+
+        {% block title %}
+            {% include 'layout/page-title.html'%}
+        {% endblock %}
+
+        <hr />
+
+        {% block body %}
+            {% include 'components/form.html'%}
+        {% endblock %}
+
+        <div class="mx-2x">
+
+        {% block footer %}
+            {% include 'layout/footer.html'%}
+        {% endblock %}
+
+        </div>
+
+    </div>
+
+</body>
+</html>

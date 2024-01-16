@@ -1,0 +1,24 @@
+<div class="d-flex justify-content-center">
+    {{ form.media }}
+    <form method="post" enctype="multipart/form-data" class="needs-validation text-start mt-4">
+        {% csrf_token %}
+        <div class="form-floating">
+            {% for field in form %}
+                <div class="form-group {% if field.field.widget.input_type != 'file' %}form-group-vertical{% endif %}">
+                    <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.help_text %}
+                        <small class="form-text text-muted">{{ field.help_text }}</small>
+                    {% endif %}
+                    {% if field.errors %}
+                        {% for error in field.errors %}
+                            <div class="alert alert-danger" role="alert">{{ error }}</div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+        <button type="submit" class="btn btn-primary mt-4">Save</button>
+    </form>
+
+</div>

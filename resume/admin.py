@@ -1,6 +1,17 @@
 from django.contrib import admin
 
-from .models import FontFamily, PageStyle, NavMenu, Summary, SocialMediaItem, Achievement, Experience, Company, Skill, SkillGroup
+from .models import FontFamily
+from .models import PageStyle
+from .models import NavMenu
+from .models import Summary
+from .models import SocialMediaItem
+from .models import Achievement
+from .models import Experience
+from .models import Membership
+from .models import Education
+from .models import Company
+from .models import Skill
+from .models import SkillGroup
 
 # Register your models here.
 admin.site.register(Summary)
@@ -37,12 +48,19 @@ class ExperienceAdmin(admin.ModelAdmin):
 
 admin.site.register(Experience, ExperienceAdmin)
 
+admin.site.register(Membership)
+
+class EducationAdmin(admin.ModelAdmin):
+    list_display = ('school', 'degree', 'major', 'year')
+
+admin.site.register(Education, EducationAdmin)
+
 class AchievementAdmin(admin.ModelAdmin):
 
-    search_fields = ['date','company']
+    search_fields = ['company', 'title']
 
     autocomplete_fields = ['company']
-    list_display = ('date', 'company')
+    list_display = ('company', 'title')
 
 admin.site.register(Achievement, AchievementAdmin)
 
