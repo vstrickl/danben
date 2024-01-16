@@ -1,14 +1,14 @@
 <!-- Education -->
 <div class="mb-5 py-1x ps-lg-3x d-flex flex-column justify-content-center" id="education">
-    <h1>Education</h1>
+    <p class="h1">Education</p>
     <ul class="list-unstyled">
         {% for e in education %}
         <div class="mb-3">
-            <li class="fs-md-1rem ldt">
+            <li class="ldt fs-5">
                 {{ e.year|date:"Y" }}
             </li>
-            <li class="company fs-md-2rem fs-lg-2rem">{{ e.degree }} {{ e.major}}</li>
-            <li class="ldt fs-md-1rem fs-lg-1rem">{{ e.school }}</li>
+            <li class="company fs-4">{{ e.degree }} {{ e.major}}</li>
+            <li class="ldt fs-5">{{ e.school }}</li>
             </li>
         </div>
         {% endfor %}

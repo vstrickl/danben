@@ -21,12 +21,8 @@
             font-family: {% for h in f.font.all %}'{{ h.family_name }}', {{ h.serif_type }}{% endfor %};
         }
 
-        h1 {
+        .h1, .h2 {
             font-family: {% for h in f.header_font.all %}'{{ h.family_name }}', {{ h.serif_type }}{% endfor %};
-        }
-
-        h1 {
-            font-weight: {{ f.header_font_weight }};
         }
 
         footer p {
@@ -59,10 +55,6 @@
 
         {% block mobile_nav %}
             {% include 'components/mobile-menu.html'%}
-        {% endblock %}
-
-        {% block buttons %}
-            {% include 'components/buttons.html' %}
         {% endblock %}
 
         {% block messages %}

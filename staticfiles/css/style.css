@@ -73,6 +73,12 @@ footer p {
     font-weight: 700
 }
 
+.short-hr {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 /* Mobile Menu Styles (visible on small screens) */
 .mobile-menu {
     display: none!important; /* Hide mobile menu by default */

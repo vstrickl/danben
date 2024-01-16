@@ -9,6 +9,48 @@
 
     <style>
 
+        @media print {
+            @page {
+                size: letter;
+            }
+
+            .fs-5 {
+                font-size: 1.25rem!important;
+            }
+
+            .fs-6 {
+                font-size: 1rem!important;
+            }
+
+            .grid-container {
+                /* Convert the container to a grid layout for printing */
+                display: grid;
+                grid-template-columns: 1fr 1fr; /* Two equal columns */
+                grid-template-rows: auto auto auto auto; /* Four rows, height adjusted to content */
+                gap: 10px; /* Adjust gap as needed */
+            }
+
+            .grid-container > .row {
+                /* Remove flex and column properties for print */
+                flex-direction: column;
+                width: 100%;
+            }
+
+            /* Target the first column */
+            .grid-container > .row:first-child {
+                grid-column: 1;
+                grid-row: 1 / span 4; /* Spanning 4 rows */
+            }
+
+            /* Target the second column items */
+            .grid-container > .row:nth-child(2),
+            .grid-container > .row:nth-child(3),
+            .grid-container > .row:nth-child(4),
+            .grid-container > .row:nth-child(5) {
+                grid-column: 2;
+            }
+        }
+
         i {
             color: #999;
         }
@@ -21,12 +63,8 @@
             font-family: {% for h in f.font.all %}'{{ h.family_name }}', {{ h.serif_type }}{% endfor %};
         }
 
-        h1 {
+        h1, h2, .h1, .h2, .fs-1 {
             font-family: {% for h in f.header_font.all %}'{{ h.family_name }}', {{ h.serif_type }}{% endfor %};
-        }
-
-        h1 {
-            font-weight: {{ f.header_font_weight }};
         }
 
         footer p {
@@ -54,21 +92,22 @@
     <div class="h-100">
 
 
+        <!-- Introduction -->
         {% block summary %}
             {% include 'exported_views/objective_ex.html'%}
         {% endblock %}
 
-        <div class="container-fluid m-0 py-ex-1x">
+        <div class="container-fluid grid-container m-0 py-ex-1x">
             <div class="row">
                 <!-- First Column (Acheivements) -->
-                <div class="col-md-8">
-                    {% block achievements %}
-                        {% include 'exported_views/achievements_ex.html' %}
+                <div class="col-md-6">
+                    {% block acheivements %}
+                        {% include 'exported_views/achievements_ex.html'%}
                     {% endblock %}
                 </div>
         
                 <!-- Second Column -->
-                <div class="col-md-4">
+                <div class="col-md-6 ps-5">
                     <!-- Experience Block -->
                     <div class="row">
                         <div class="col-md-12">
