@@ -28,9 +28,10 @@ class NavMenu(models.Model):
         return self.title
     
 class Summary(models.Model):
+    first_name = models.CharField(max_length=200,null=True, blank=True)
+    last_name = models.CharField(max_length=200,null=True, blank=True)
     image = CloudinaryField('image', null=True, blank=True)
     desired_job = models.CharField(max_length=200, null=True, blank=True)
-    location = models.CharField(max_length=200, null=True, blank=True)
     objective = models.TextField(null=True, blank=True)
 
     def __str__(self):
@@ -44,23 +45,28 @@ class Company(models.Model):
     
 class Achievement(models.Model):
     date = models.CharField(max_length=200,null=True, blank=True)
-    company = models.ManyToManyField(Company, blank=True, related_name='achievements') 
+    company = models.ForeignKey(Company, blank=True, null=True, on_delete=models.CASCADE, related_name='company_achievements') 
     details = models.TextField(null=True, blank=True)
 
     def __str__(self):
-        if self.company.exists():
-            return f"{self.date} - {self.company.first().name}"
+        if self.company:
+            return self.company.name
         else:
-            return self.date
+            return 'No Company'
     
 class Experience(models.Model):
-    time_frame = models.CharField(max_length=200,null=True, blank=True)
-    company = models.ManyToManyField(Company, blank=True, related_name='hired_companies') 
+    start_date = models.DateField(null=True, blank=True)
+    end_date = models.DateField(null=True, blank=True)
+    present = models.BooleanField(null=True, blank=True)
+    company = models.ForeignKey(Company, blank=True, null=True, on_delete=models.CASCADE, related_name='hired_companies') 
     job_title = models.CharField(max_length=200, null=True, blank=True)
     achievements = models.ManyToManyField(Achievement, blank=True, related_name='accomplishments') 
 
     def __str__(self):
-        return self.time_frame
+        if self.company:
+            return self.company.name
+        else:
+            return 'No Company'
     
 class SocialMediaItem(models.Model):
     social = models.CharField(max_length=200, null=True, blank=True)

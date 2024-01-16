@@ -1,12 +1,15 @@
 from django.shortcuts import render
-from django.conf import settings
 
-from .models import PageStyle, NavMenu, SocialMediaItem, Summary, Experience, Achievement, SkillGroup
+from .models import PageStyle
+from .models import NavMenu
+from .models import SocialMediaItem
+from .models import Summary
+from .models import Experience
+from .models import Achievement
+from .models import SkillGroup
 
 # Create your views here.
 def resume(request):
-
-    title = 'Vonique Stricklen'
 
     theme = PageStyle.objects.get(pk=1)
     summary = Summary.objects.get(pk=1)
@@ -20,7 +23,6 @@ def resume(request):
         'f':theme, 
         'nav':nav,
         's':summary,
-        'title':title,
         'skills':skills,
         'social':social, 
         'experience':experience,

@@ -33,21 +33,16 @@ admin.site.register(NavMenu, NavMenuAdmin)
 class ExperienceAdmin(admin.ModelAdmin):
 
     autocomplete_fields = ['company','achievements']
-    list_display = ("time_frame", "display_companies", "job_title")
-
-    def display_companies(self, obj):
-        return ", ".join([company.name for company in obj.company.all()])
+    list_display = ('company', 'job_title', 'start_date', 'present','end_date')
 
 admin.site.register(Experience, ExperienceAdmin)
 
 class AchievementAdmin(admin.ModelAdmin):
 
-    autocomplete_fields = ['company']
     search_fields = ['date','company']
-    list_display = ("date", "display_companies")
 
-    def display_companies(self, obj):
-        return ", ".join([company.name for company in obj.company.all()])
+    autocomplete_fields = ['company']
+    list_display = ('date', 'company')
 
 admin.site.register(Achievement, AchievementAdmin)
 
