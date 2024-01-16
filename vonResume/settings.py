@@ -26,7 +26,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG')
 
-ALLOWED_HOSTS = ['.vonstrick.com', '127.0.0.1']
+ALLOWED_HOSTS = ['.danielbrunker.com', '127.0.0.1']
 
 
 # Application definition
@@ -169,7 +169,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # CSRF Tokens
 # https://docs.djangoproject.com/en/4.2/howto/csrf/
 
-CSRF_TRUSTED_ORIGINS = ['https://vonstrick.com','http://127.0.0.1:8000']
+CSRF_TRUSTED_ORIGINS = [
+    'https://www.danielbrunker.com',
+    'https://danielbrunker.com',
+    'http://127.0.0.1:8000'
+    ]
 
 # Cookies
 
