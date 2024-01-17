@@ -1,8 +1,4 @@
-from weasyprint import HTML
-from django.http import HttpResponse
-
 from django.shortcuts import render
-from django.template.loader import get_template
 
 from .models import PageStyle
 from .models import NavMenu
@@ -73,48 +69,6 @@ def upload_skills(request):
         template_name='upload.html',
         context=context
     )
-
-def generate_pdf(request):
-
-    theme = PageStyle.objects.get(pk=1)
-    summary = Summary.objects.get(pk=1)
-    nav = NavMenu.objects.all()
-    social = SocialMediaItem.objects.all()
-    experience = Experience.objects.all()
-    memberships = Membership.objects.all()
-    education = Education.objects.all()
-    skills = SkillGroup.objects.all()
-
-    combined_achievements = []
-    for ach in Achievement.objects.all():
-        experiences = Experience.objects.filter(achievements=ach)
-        combined_achievements.append({
-            'achievement': ach,
-            'experiences': experiences
-        })
-
-    # Combine into a context
-    context = {
-        'f': theme, 
-        'nav': nav,
-        's': summary,
-        'skills': skills,
-        'social': social, 
-        'experience': experience,
-        'memberships': memberships,
-        'education': education,
-        'combined_achievements': combined_achievements,
-    }
-
-    # Render HTML template with data
-    template = get_template('resume_export.html')
-    html = template.render(context)
-
-    # Prepare the final HttpResponse with the combined PDF
-    response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename="community_security_director_resume.pdf"'
-    HTML(string=html).write_pdf(response)
-    return response
 
 def resume_export(request):
 
