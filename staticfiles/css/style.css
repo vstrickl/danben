@@ -1,14 +1,31 @@
 i {
     font-size: inherit;
+    color: #999;
 }
 
 h1 {
     font-size: 3.25rem;
 }
 
-
 footer p {
     margin-bottom: 0!important;
+    color: #4e4e4e;
+}
+
+a, p, li {
+    color: #4e4e4e;
+}
+
+.active, a:hover {
+    color: #4d4d4d;
+}
+
+.nl {
+    color: #a7a7a7;
+}
+
+.ldt {
+    color: #8c8c8c;
 }
 
 .bg-cover {
@@ -19,14 +36,6 @@ footer p {
 .bg-no-repeat {
     /* Prevent the background image from repeating */
     background-repeat: no-repeat;
-}
-
-.mt-2x {
-    margin-top: 20%!important;
-}
-
-.mb-2x {
-    margin-bottom: 20%!important;
 }
 
 .mx-2x {
@@ -75,8 +84,6 @@ footer p {
 
 .short-hr {
     width: 50%;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 /* Mobile Menu Styles (visible on small screens) */

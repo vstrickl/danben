@@ -9,17 +9,17 @@
 
     <style>
 
+        a, p, li {
+            font-family: {% for h in f.font.all %}'{{ h.family_name }}', {{ h.serif_type }}{% endfor %};
+        }
+
+        h1, h2, .h1, .h2, .fs-1 {
+            font-family: {% for h in f.header_font.all %}'{{ h.family_name }}', {{ h.serif_type }}{% endfor %};
+        }
+
         @media print {
             @page {
                 size: letter;
-            }
-
-            .fs-5 {
-                font-size: 1.25rem!important;
-            }
-
-            .fs-6 {
-                font-size: 1rem!important;
             }
 
             .grid-container {
@@ -51,38 +51,6 @@
             }
         }
 
-        i {
-            color: #999;
-        }
-
-        a, p, li {
-            color: #4e4e4e;
-        }
-
-        a, p, li {
-            font-family: {% for h in f.font.all %}'{{ h.family_name }}', {{ h.serif_type }}{% endfor %};
-        }
-
-        h1, h2, .h1, .h2, .fs-1 {
-            font-family: {% for h in f.header_font.all %}'{{ h.family_name }}', {{ h.serif_type }}{% endfor %};
-        }
-
-        footer p {
-            color: #4e4e4e;
-        }
-
-        .active, a:hover {
-            color: #4d4d4d;
-        }
-
-        .nl {
-            color: #a7a7a7;
-        }
-
-        .ldt {
-            color: #8c8c8c;
-        }
-
     </style>
 
 </head>
@@ -90,7 +58,6 @@
 <body class="vh-100">
 
     <div class="h-100">
-
 
         <!-- Introduction -->
         {% block summary %}
@@ -154,6 +121,7 @@
         {% endblock %}
 
         </div>
+
 
     </div>
 
