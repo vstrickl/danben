@@ -1,13 +1,7 @@
-import os
-import base64
-import cloudinary.uploader
-
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
+from concurrent.futures import ProcessPoolExecutor
 
 from django.urls import reverse
 from django.shortcuts import render
-from django.shortcuts import redirect
 from django.http import HttpResponse
 
 from .models import PageStyle
@@ -23,7 +17,8 @@ from .models import Skill
 
 from .forms import CsvUploadForm
 
-from .csv_upload import handle_csv_upload
+from .utlis import csv_upload
+from .utlis import screenshot_worker
 
 # Create your views here.
 def resume(request):
@@ -70,7 +65,7 @@ def upload_skills(request):
 
     field_mapping = {'type': 0}
 
-    return handle_csv_upload(
+    return csv_upload(
         request=request,
         model_class=Skill,
         success_url='resume',
@@ -114,40 +109,20 @@ def resume_export(request):
     return render(request, 'resume_export.html', context)
 
 def download_resume_pdf(request):
-    # Set up Seleniu with headless Chrome
-    chrome_options = Options()
-    chrome_options.add_argument("--headless=new")
-
-    # Ensure the path to chromedriver is set in your system's PATH
-    driver = webdriver.Chrome(options=chrome_options)
-
     try:
-        # Replace with the URL of your resume page
-        driver.get(request.build_absolute_uri(reverse('preview')))
+        # Dynamically get the URL for 'preview' view
+        resume_page_url = request.build_absolute_uri(reverse('preview'))
 
-        # Using Chrome's built-in PDF printing feature
-        pdf_data = driver.execute_cdp_cmd("Page.printToPDF", {"printBackground": True})
-        pdf_content = base64.b64decode(pdf_data['data'])
+        # Run Pyppeteer in a separate process
+        with ProcessPoolExecutor() as executor:
+            future = executor.submit(screenshot_worker, resume_page_url)
+            pdf = future.result()
 
-        # Save screenshot to a temporary file
-        temp_pdf_path = '/tmp/resume.pdf'
-        with open(temp_pdf_path, 'wb') as f:
-            f.write(pdf_content)
-
-        # Check if PDF is correctly generated
-        if os.path.exists(temp_pdf_path) and os.path.getsize(temp_pdf_path) > 0:
-            # Error handling for Cloudinary upload
-            try:
-                # Upload to Cloudinary
-                upload_response = cloudinary.uploader.upload(temp_pdf_path, resource_type='auto', public_id='daniel_brunker_resume')
-                pdf_url = upload_response.get('url')
-                # Redirect user to the Cloudinary URL to download the PDF
-                return redirect(pdf_url)
-            except Exception as e:
-                return HttpResponse(f"Error uploading to Cloudinary: {e}", status=500)
-        else:
-            return HttpResponse("Failed to generate PDF file.", status=500)
+        # Create the HTTP response with the PDF
+        response = HttpResponse(pdf, content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename="daniel_brunker_resume.pdf"'
+        return response
     except Exception as e:
-        return HttpResponse(f"Error generating PDF: {e}", status=500)
-    finally:
-        driver.quit()
+        # Handle exceptions (e.g., log them, return an error message)
+        # For simplicity, just returning a basic HTTP  response here
+        return HttpResponse(f"Error while generating PDF: {e}", status=500)

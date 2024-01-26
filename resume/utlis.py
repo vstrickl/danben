@@ -1,13 +1,16 @@
 import csv
+import asyncio
 
 from io import TextIOWrapper
+from pyppeteer import launch
+
 from django.http import HttpRequest
 from django.shortcuts import redirect
 from django.shortcuts import render
 
 from .forms import CsvUploadForm
 
-def handle_csv_upload(
+def csv_upload(
         request: HttpRequest,
         model_class,
         success_url,
@@ -47,3 +50,28 @@ def handle_csv_upload(
         context['form'] = form
 
     return render(request, template_name, context)
+
+async def take_screenshot(url):
+    browser = await launch()
+    page = await browser.newPage()
+    await page.goto(url)
+
+    # Set the viewport size here
+    await page.setViewport({"width": 816, "height": 1056})
+
+    # Generate PDF with custom margins
+    pdf = await page.pdf({
+        'format': 'A4',
+        'margin': {
+            'top': '20mm',
+            'right': '20mm',
+            'bottom': '20mm',
+            'left': '20mm'
+        }
+    })
+
+    await browser.close()
+    return pdf
+
+def screenshot_worker(url):
+    return asyncio.run(take_screenshot(url))

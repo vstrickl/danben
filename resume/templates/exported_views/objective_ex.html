@@ -1,14 +1,14 @@
 <!-- Introduction -->
-<div class="mb-5 py-ex-1x pt-1x d-flex flex-column justify-content-center col-lg-12" id="summary">
+<div class="mb-5" id="summary">
     {% if s.image.url %}
         <p class="ldt fs-4">{{ s.desired_job }}</p>
         <div class="d-flex flex-row align-items-center mb-3">
-            <div class="col-md-2">
+            <div>
                 <img src="{{ s.image.url }}" alt="Avatar" class="rounded-circle img-fluid m-3">
             </div>
         </div>
     {% else %}
-        <div class="col-md-10 mb-0">
+        <div class="mb-0">
             <p class="h1 text-uppercase">{{ s.first_name }} {{ s.last_name }}</p>
             <p class="ldt fs-5 mb-2">{{ s.desired_job }}</p>
         </div>
